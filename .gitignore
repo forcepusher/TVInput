@@ -1,0 +1,13 @@
+/Library/
+/Temp/
+/obj/
+/Logs/
+/UserSettings/
+/Builds/
+/*.sln
+/*.csproj
+/.vscode/
+/.vs/
+
+# Baked data
+/Assets/Source/Scenes/Game/
