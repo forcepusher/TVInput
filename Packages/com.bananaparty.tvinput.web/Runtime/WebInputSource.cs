@@ -2,7 +2,7 @@ namespace BananaParty.TVInput
 {
     public enum WebInputSource
     {
-        Keyboard,
-        Gamepad
+        Keyboard = 0,
+        Gamepad = 1
     }
 }

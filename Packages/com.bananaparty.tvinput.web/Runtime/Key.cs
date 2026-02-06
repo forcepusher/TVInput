@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 namespace BananaParty.TVInput
@@ -19,8 +20,21 @@ namespace BananaParty.TVInput
         {
             get
             {
-                return true;
+                return GetKeyDown(_webKeyIndex, (int)_webInputSource);
             }
         }
+
+        public int ConsumePresses()
+        {
+            return 0;
+        }
+
+        public int ConsumeReleases()
+        {
+            return 0;
+        }
+
+        [DllImport("__Internal")]
+        private static extern bool GetKeyDown(int webKeyIndex, int webInputSource);
     }
 }
