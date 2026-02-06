@@ -32,19 +32,31 @@ namespace BananaParty.TVInput
             return 0;
         }
 
+        [DllImport("__Internal")]
+        private static extern bool KeyConsumePresses(int webKeyIndex, int webInputSource);
+
         public int PeekPresses()
         {
             return 0; 
         }
+
+        [DllImport("__Internal")]
+        private static extern bool KeyPeekPresses(int webKeyIndex, int webInputSource);
 
         public int ConsumeReleases()
         {
             return 0;
         }
 
+        [DllImport("__Internal")]
+        private static extern bool KeyConsumeReleases(int webKeyIndex, int webInputSource);
+
         public int PeekReleases()
         {
             return 0;
         }
+
+        [DllImport("__Internal")]
+        private static extern bool KeyPeekReleases(int webKeyIndex, int webInputSource);
     }
 }
