@@ -1,6 +1,6 @@
 # com.bananaparty.tvinput  
   
-Unity package. TV remote input for the WebGL platform.  
+Unity package. Fully cross-platform TV remote input.  
   
 Make sure you have the standalone [Git](https://git-scm.com/downloads) installed. Reboot after installation.  
 In Unity, open "Window" -> "Package Manager".  
