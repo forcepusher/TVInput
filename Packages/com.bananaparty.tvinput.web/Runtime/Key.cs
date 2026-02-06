@@ -6,7 +6,7 @@ namespace BananaParty.TVInput
     {
         private bool _held;
 
-        public Key(int webKeyCode, KeyCode unityKeyCode)
+        public Key(KeyCode unityKeyCode, int webKeyIndex, WebInputSource webInputSource)
         {
 
         }

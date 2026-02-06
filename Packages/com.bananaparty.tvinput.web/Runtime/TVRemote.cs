@@ -4,10 +4,12 @@ namespace BananaParty.TVInput
 {
     public class TVRemote
     {
-        public readonly Key SubmitKey = new(13, KeyCode.JoystickButton0);
-        public readonly Key LeftKey = new(13, KeyCode.JoystickButton14);
-        public readonly Key RightKey = new(13, KeyCode.JoystickButton15);
-        public readonly Key UpKey = new(13, KeyCode.JoystickButton12);
-        public readonly Key DownKey = new(13, KeyCode.JoystickButton13);
+        public readonly Key SubmitKey = new(KeyCode.JoystickButton0, 13, WebInputSource.Keyboard);
+        public readonly Key UpKey = new(KeyCode.JoystickButton12, 12, WebInputSource.Gamepad);
+        public readonly Key DownKey = new(KeyCode.JoystickButton13, 13, WebInputSource.Gamepad);
+        public readonly Key LeftKey = new(KeyCode.JoystickButton14, 14, WebInputSource.Gamepad);
+        public readonly Key RightKey = new(KeyCode.JoystickButton15, 15, WebInputSource.Gamepad);
+        
+        
     }
 }
