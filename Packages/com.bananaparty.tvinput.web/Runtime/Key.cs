@@ -20,13 +20,21 @@ namespace BananaParty.TVInput
         {
             get
             {
-                return GetKeyDown(_webKeyIndex, (int)_webInputSource);
+                return KeyIsHeld(_webKeyIndex, (int)_webInputSource);
             }
         }
+
+        [DllImport("__Internal")]
+        private static extern bool KeyIsHeld(int webKeyIndex, int webInputSource);
 
         public int ConsumePresses()
         {
             return 0;
+        }
+
+        public int PeekPresses()
+        {
+            return 0; 
         }
 
         public int ConsumeReleases()
@@ -34,7 +42,9 @@ namespace BananaParty.TVInput
             return 0;
         }
 
-        [DllImport("__Internal")]
-        private static extern bool GetKeyDown(int webKeyIndex, int webInputSource);
+        public int PeekReleases()
+        {
+            return 0;
+        }
     }
 }
