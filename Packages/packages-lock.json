@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.bananaparty.tvinput.web": {
+    "com.bananaparty.tvinput": {
       "version": "file:com.bananaparty.tvinput.web",
       "depth": 0,
       "source": "embedded",

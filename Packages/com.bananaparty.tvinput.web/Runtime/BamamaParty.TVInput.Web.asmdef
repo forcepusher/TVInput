@@ -1,6 +1,7 @@
 {
-    "name": "BamamaParty.TVInput.Web",
+    "name": "BamamaParty.TVInput",
     "rootNamespace": "",
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

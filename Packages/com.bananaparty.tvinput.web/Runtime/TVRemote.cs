@@ -1,4 +1,4 @@
-namespace BananaParty.TVInput.Web
+namespace BananaParty.TVInput
 {
     public class TVRemote
     {
