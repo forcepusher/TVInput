@@ -29,6 +29,22 @@ const tvInputLibrary = {
   GetKeyIsHeld: function (keyIndex, inputSource) {
     return tvInput.getKeyIsHeld();
   },
+
+  KeyConsumePresses: function (keyIndex, inputSource) {
+    return 0;
+  },
+
+  KeyPeekPresses: function (keyIndex, inputSource) {
+    return 0;
+  },
+  
+  KeyConsumeReleases: function (keyIndex, inputSource) {
+    return 0;
+  },
+
+  KeyPeekReleases: function (keyIndex, inputSource) {
+    return 0;
+  }
 }
 
 autoAddDeps(tvInputLibrary, '$tvInput');
