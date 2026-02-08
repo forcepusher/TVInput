@@ -9,8 +9,8 @@ namespace BananaParty.TVInput
         private readonly int _webKeyIndex;
         private readonly WebInputSource _webInputSource;
 
-        private int _presses;
-        private int _releases;
+        private int _pressCount;
+        private int _releaseCount;
 
         public Key(KeyCode unityKeyCode, int webKeyIndex, WebInputSource webInputSource)
         {
@@ -38,8 +38,8 @@ namespace BananaParty.TVInput
 
         public void PollInput()
         {
-            _presses += Input.GetKeyDown(_unityKeyCode) ? 1 : 0;
-            _releases += Input.GetKeyUp(_unityKeyCode) ? 1 : 0;
+            _pressCount += Input.GetKeyDown(_unityKeyCode) ? 1 : 0;
+            _releaseCount += Input.GetKeyUp(_unityKeyCode) ? 1 : 0;
         }
 
         [DllImport("__Internal")]
@@ -53,8 +53,8 @@ namespace BananaParty.TVInput
             }
             else
             {
-                var presses = _presses;
-                _presses = 0;
+                var presses = _pressCount;
+                _pressCount = 0;
                 return presses;
             }
         }
@@ -67,7 +67,7 @@ namespace BananaParty.TVInput
             if (TVRemote.IsRunningOnWeb)
                 return KeyPeekPresses(webKeyIndex, (int)webInputSource);
             else
-                return _presses;
+                return _pressCount;
         }
 
         [DllImport("__Internal")]
@@ -81,8 +81,8 @@ namespace BananaParty.TVInput
             }
             else
             {
-                var releases = _releases;
-                _releases = 0;
+                var releases = _releaseCount;
+                _releaseCount = 0;
                 return releases;
             }
         }
@@ -95,7 +95,7 @@ namespace BananaParty.TVInput
             if (TVRemote.IsRunningOnWeb)
                 return KeyPeekReleases(webKeyIndex, (int)webInputSource);
             else
-                return _releases;
+                return _releaseCount;
         }
 
         [DllImport("__Internal")]
