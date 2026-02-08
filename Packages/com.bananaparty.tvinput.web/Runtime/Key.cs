@@ -23,7 +23,7 @@ namespace BananaParty.TVInput
         }
 
         [DllImport("__Internal")]
-        private static extern bool InitializeKey(int webKeyIndex, int webInputSource);
+        private static extern bool Initialize(int webKeyIndex, int webInputSource);
 
         public bool IsHeld
         {

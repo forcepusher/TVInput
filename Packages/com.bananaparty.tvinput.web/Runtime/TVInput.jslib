@@ -14,7 +14,7 @@ const tvInputLibrary = {
 
   // External C# calls.
 
-  TVInputInitializeKey: function () {
+  KeyInitialize: function () {
     tvInputKey.initialize();
   },
 
