@@ -22,6 +22,11 @@ namespace BananaParty.TVInput
             }
         }
 
+        public void Initialize()
+        {
+
+        }
+
         public void PollInput()
         {
             SubmitKey.PollInput();

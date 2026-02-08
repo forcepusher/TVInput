@@ -3,18 +3,18 @@ const tvInputLibrary = {
   // Class definition.
 
   $tvInput: {
-    initialize: function () {
+    initializeKey: function () {
 
     },
 
-    getInBackground: function () {
+    getKeyIsHeld: function () {
       return document.hidden;
     },
   },
 
   // External C# calls.
 
-  TVInputInitialize: function () {
+  TVInputInitializeKey: function () {
     tvInputKey.initialize();
   },
 
