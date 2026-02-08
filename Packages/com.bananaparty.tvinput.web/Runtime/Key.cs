@@ -32,7 +32,8 @@ namespace BananaParty.TVInput
 
         public void PollInput()
         {
-
+            _presses += Input.GetKeyDown(_unityKeyCode) ? 1 : 0;
+            _releases += Input.GetKeyUp(_unityKeyCode) ? 1 : 0;
         }
 
         [DllImport("__Internal")]
