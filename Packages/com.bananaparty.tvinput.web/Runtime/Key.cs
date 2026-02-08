@@ -17,7 +17,14 @@ namespace BananaParty.TVInput
             _unityKeyCode = unityKeyCode;
             _webKeyIndex = webKeyIndex;
             _webInputSource = webInputSource;
+
+            if (TVRemote.IsRunningOnWeb)
+                InitializeKey(webKeyIndex, (int)webInputSource);
+
         }
+
+        [DllImport("__Internal")]
+        private static extern bool InitializeKey(int webKeyIndex, int webInputSource);
 
         public bool IsHeld
         {
