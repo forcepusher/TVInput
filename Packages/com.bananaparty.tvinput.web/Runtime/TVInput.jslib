@@ -15,11 +15,11 @@ const tvInputLibrary = {
   // External C# calls.
 
   KeyInitialize: function () {
-    tvInputKey.initialize();
+    tvInput.keyInitialize();
   },
 
   GetKeyIsHeld: function () {
-    return tvInputKey.getInBackground();
+    return tvInput.getKeyIsHeld();
   },
 }
 
