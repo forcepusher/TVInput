@@ -3,30 +3,30 @@ const tvInputLibrary = {
   // Class definition.
 
   $tvInput: {
-    keyInitialize: function () {
+    keyInitialize: function (keyIndex, inputSource) {
         document.addEventListener('keydown', function (event) {
             
             event.preventDefault();
         });
 
         document.addEventListener('keyup', function (event) {
-            
+
             event.preventDefault();
         });
     },
 
-    getKeyIsHeld: function () {
-      return document.hidden;
+    getKeyIsHeld: function (keyIndex, inputSource) {
+      return true;
     },
   },
 
   // External C# calls.
 
-  KeyInitialize: function () {
+  KeyInitialize: function (keyIndex, inputSource) {
     tvInput.keyInitialize();
   },
 
-  GetKeyIsHeld: function () {
+  GetKeyIsHeld: function (keyIndex, inputSource) {
     return tvInput.getKeyIsHeld();
   },
 }
