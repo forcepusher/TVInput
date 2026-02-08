@@ -2,15 +2,9 @@ const tvInputLibrary = {
 
   // Class definition.
 
-  $tvRemote: {
+  $tvInput: {
     initialize: function () {
-      document.addEventListener('pointerdown', function () {
-        window.focus();
-      }); // Fix Unity OnApplicationFocus() callback bug in mobile Chrome-based browsers when running in an iFrame.
 
-      document.addEventListener('visibilitychange', function () {
-        {{{ makeDynCall('vi', 'onInBackgroundChangeCallbackPtr') }}}(document.hidden);
-      });
     },
 
     getInBackground: function () {
@@ -20,14 +14,14 @@ const tvInputLibrary = {
 
   // External C# calls.
 
-  WebApplicationInitialize: function (onInBackgroundChangeCallbackPtr) {
-    webApplication.initialize(onInBackgroundChangeCallbackPtr);
+  TVInputInitialize: function () {
+    tvInputKey.initialize();
   },
 
-  GetWebApplicationInBackground: function () {
-    return webApplication.getInBackground();
+  GetKeyIsHeld: function () {
+    return tvInputKey.getInBackground();
   },
 }
 
-autoAddDeps(webApplicationLibrary, '$webApplication');
-mergeInto(LibraryManager.library, webApplicationLibrary);
+autoAddDeps(tvInputLibrary, '$tvInput');
+mergeInto(LibraryManager.library, tvInputLibrary);

@@ -20,43 +20,43 @@ namespace BananaParty.TVInput
         {
             get
             {
-                return KeyIsHeld(_webKeyIndex, (int)_webInputSource);
+                return GetKeyIsHeld(_webKeyIndex, (int)_webInputSource);
             }
         }
 
         [DllImport("__Internal")]
-        private static extern bool KeyIsHeld(int webKeyIndex, int webInputSource);
+        private static extern bool GetKeyIsHeld(int webKeyIndex, int webInputSource);
 
-        public int ConsumePresses()
+        public int ConsumePresses(int webKeyIndex, WebInputSource webInputSource)
         {
-            return 0;
+            return KeyConsumePresses(webKeyIndex, (int)webInputSource);
         }
 
         [DllImport("__Internal")]
-        private static extern bool KeyConsumePresses(int webKeyIndex, int webInputSource);
+        private static extern int KeyConsumePresses(int webKeyIndex, int webInputSource);
 
-        public int PeekPresses()
+        public int PeekPresses(int webKeyIndex, WebInputSource webInputSource)
         {
-            return 0; 
+            return KeyPeekPresses(webKeyIndex, (int)webInputSource);
         }
 
         [DllImport("__Internal")]
-        private static extern bool KeyPeekPresses(int webKeyIndex, int webInputSource);
+        private static extern int KeyPeekPresses(int webKeyIndex, int webInputSource);
 
-        public int ConsumeReleases()
+        public int ConsumeReleases(int webKeyIndex, WebInputSource webInputSource)
         {
-            return 0;
+            return KeyConsumeReleases(webKeyIndex, (int)webInputSource);
         }
 
         [DllImport("__Internal")]
-        private static extern bool KeyConsumeReleases(int webKeyIndex, int webInputSource);
+        private static extern int KeyConsumeReleases(int webKeyIndex, int webInputSource);
 
-        public int PeekReleases()
+        public int PeekReleases(int webKeyIndex, WebInputSource webInputSource)
         {
-            return 0;
+            return KeyPeekReleases(webKeyIndex, (int)webInputSource);
         }
 
         [DllImport("__Internal")]
-        private static extern bool KeyPeekReleases(int webKeyIndex, int webInputSource);
+        private static extern int KeyPeekReleases(int webKeyIndex, int webInputSource);
     }
 }
