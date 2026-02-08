@@ -20,8 +20,16 @@ namespace BananaParty.TVInput
         {
             get
             {
-                return GetKeyIsHeld(_webKeyIndex, (int)_webInputSource);
+                if (TVRemote.IsRunningOnWeb)
+                    return GetKeyIsHeld(_webKeyIndex, (int)_webInputSource);
+                else
+                    return Input.GetKey(_unityKeyCode);
             }
+        }
+
+        public void PollInput()
+        {
+
         }
 
         [DllImport("__Internal")]
@@ -29,7 +37,9 @@ namespace BananaParty.TVInput
 
         public int ConsumePresses(int webKeyIndex, WebInputSource webInputSource)
         {
-            return KeyConsumePresses(webKeyIndex, (int)webInputSource);
+            if (TVRemote.IsRunningOnWeb)
+                return KeyConsumePresses(webKeyIndex, (int)webInputSource);
+
         }
 
         [DllImport("__Internal")]
