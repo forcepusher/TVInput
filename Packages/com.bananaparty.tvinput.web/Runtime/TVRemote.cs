@@ -4,7 +4,7 @@ namespace BananaParty.TVInput
 {
     public class TVRemote
     {
-        public static bool IsRunningOnWebGL
+        public static bool IsRunningOnWeb
         {
             get
             {
