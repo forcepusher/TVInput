@@ -19,11 +19,11 @@ namespace BananaParty.TVInput
             _webInputSource = webInputSource;
 
             if (TVRemote.IsRunningOnWeb)
-                Initialize(webKeyIndex, (int)webInputSource);
+                KeyInitialize(webKeyIndex, (int)webInputSource);
         }
 
         [DllImport("__Internal")]
-        private static extern bool Initialize(int webKeyIndex, int webInputSource);
+        private static extern bool KeyInitialize(int webKeyIndex, int webInputSource);
 
         public bool IsHeld
         {
