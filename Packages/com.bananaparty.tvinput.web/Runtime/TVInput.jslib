@@ -6,16 +6,12 @@ const tvInputLibrary = {
     // Per-key state: key = "inputSource_keyIndex", value = { pressCount, releaseCount }
     keyStates: {},
 
-    keyStateKey: function (keyIndex, inputSource) {
-      return (inputSource || 0) + '_' + keyIndex;
-    },
-
     getOrCreateKeyState: function (keyIndex, inputSource) {
-      const k = this.keyStateKey(keyIndex, inputSource);
-      if (!this.keyStates[k]) {
-        this.keyStates[k] = { pressCount: 0, releaseCount: 0 };
+      const keyInputSourceAndIndex = inputSource + '_' + keyIndex;
+      if (!this.keyStates[keyInputSourceAndIndex]) {
+        this.keyStates[keyInputSourceAndIndex] = { pressCount: 0, releaseCount: 0 };
       }
-      return this.keyStates[k];
+      return this.keyStates[keyInputSourceAndIndex];
     },
 
     keyInitialize: function (keyIndex, inputSource) {
