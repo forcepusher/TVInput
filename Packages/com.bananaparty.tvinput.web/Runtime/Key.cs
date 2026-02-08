@@ -20,7 +20,6 @@ namespace BananaParty.TVInput
 
             if (TVRemote.IsRunningOnWeb)
                 InitializeKey(webKeyIndex, (int)webInputSource);
-
         }
 
         [DllImport("__Internal")]
