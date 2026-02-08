@@ -4,7 +4,15 @@ const tvInputLibrary = {
 
   $tvInput: {
     keyInitialize: function () {
+        document.addEventListener('keydown', function (event) {
+            
+            event.preventDefault();
+        });
 
+        document.addEventListener('keyup', function (event) {
+            
+            event.preventDefault();
+        });
     },
 
     getKeyIsHeld: function () {
