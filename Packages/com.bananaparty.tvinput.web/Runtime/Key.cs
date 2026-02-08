@@ -9,6 +9,9 @@ namespace BananaParty.TVInput
         private readonly int _webKeyIndex;
         private readonly WebInputSource _webInputSource;
 
+        private int _presses;
+        private int _releases;
+
         public Key(KeyCode unityKeyCode, int webKeyIndex, WebInputSource webInputSource)
         {
             _unityKeyCode = unityKeyCode;
@@ -38,8 +41,15 @@ namespace BananaParty.TVInput
         public int ConsumePresses(int webKeyIndex, WebInputSource webInputSource)
         {
             if (TVRemote.IsRunningOnWeb)
+            {
                 return KeyConsumePresses(webKeyIndex, (int)webInputSource);
-
+            }
+            else
+            {
+                var presses = _presses;
+                _presses = 0;
+                return presses;
+            }
         }
 
         [DllImport("__Internal")]
@@ -47,7 +57,10 @@ namespace BananaParty.TVInput
 
         public int PeekPresses(int webKeyIndex, WebInputSource webInputSource)
         {
-            return KeyPeekPresses(webKeyIndex, (int)webInputSource);
+            if (TVRemote.IsRunningOnWeb)
+                return KeyPeekPresses(webKeyIndex, (int)webInputSource);
+            else
+                return _presses;
         }
 
         [DllImport("__Internal")]
@@ -55,7 +68,16 @@ namespace BananaParty.TVInput
 
         public int ConsumeReleases(int webKeyIndex, WebInputSource webInputSource)
         {
-            return KeyConsumeReleases(webKeyIndex, (int)webInputSource);
+            if (TVRemote.IsRunningOnWeb)
+            {
+                return KeyConsumeReleases(webKeyIndex, (int)webInputSource);
+            }
+            else
+            {
+                var releases = _releases;
+                _releases = 0;
+                return releases;
+            }
         }
 
         [DllImport("__Internal")]
@@ -63,7 +85,10 @@ namespace BananaParty.TVInput
 
         public int PeekReleases(int webKeyIndex, WebInputSource webInputSource)
         {
-            return KeyPeekReleases(webKeyIndex, (int)webInputSource);
+            if (TVRemote.IsRunningOnWeb)
+                return KeyPeekReleases(webKeyIndex, (int)webInputSource);
+            else
+                return _releases;
         }
 
         [DllImport("__Internal")]
