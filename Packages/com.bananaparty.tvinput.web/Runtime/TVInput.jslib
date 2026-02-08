@@ -3,7 +3,7 @@ const tvInputLibrary = {
   // Class definition.
 
   $tvInput: {
-    initializeKey: function () {
+    keyInitialize: function () {
 
     },
 
