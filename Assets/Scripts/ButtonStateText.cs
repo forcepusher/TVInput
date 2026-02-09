@@ -8,7 +8,6 @@ namespace BananaParty.Input.TVRemote.Sample
 
         private EventQueue<PressEvent> _okButtonPressEventQueue;
         private EventQueue<ReleaseEvent> _okButtonReleaseEventQueue;
-        
 
         private string _eventLog;
 
@@ -20,7 +19,8 @@ namespace BananaParty.Input.TVRemote.Sample
 
         private void OnDisable()
         {
-            
+            _tvRemote.OkButton.PressEventHub.Unsubscribe(_okButtonPressEventQueue);
+            _tvRemote.OkButton.ReleaseEventHub.Unsubscribe(_okButtonReleaseEventQueue);
         }
     }
 }
