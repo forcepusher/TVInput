@@ -10,7 +10,7 @@ namespace BananaParty.Input.TVRemote.Sample
 
         private string _eventLog;
 
-        private TVRemote _tvRemote = new();
+        private readonly TVRemote _tvRemote = new();
 
         private EventQueue<PressEvent> _okButtonPressEventQueue;
         private EventQueue<ReleaseEvent> _okButtonReleaseEventQueue;
