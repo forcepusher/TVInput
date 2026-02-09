@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BananaParty.TVInput.Sample
+namespace BananaParty.Input.TVRemote.Sample
 {
     public class KeyStateText : MonoBehaviour
     {
@@ -10,7 +10,7 @@ namespace BananaParty.TVInput.Sample
 
         private void OnEnable()
         {
-            //_tvRemote.DownKey
+            _tvRemote.DownButton
         }
 
         private void OnDisable()

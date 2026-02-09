@@ -4,11 +4,11 @@ namespace BananaParty.Input.TVRemote
 {
     public class TVRemote
     {
-        public readonly TVRemoteButton SubmitKey = new(KeyCode.JoystickButton0, 13, WebInputDevice.Keyboard);
-        public readonly TVRemoteButton UpKey = new(KeyCode.JoystickButton12, 12, WebInputDevice.Gamepad);
-        public readonly TVRemoteButton DownKey = new(KeyCode.JoystickButton13, 13, WebInputDevice.Gamepad);
-        public readonly TVRemoteButton LeftKey = new(KeyCode.JoystickButton14, 14, WebInputDevice.Gamepad);
-        public readonly TVRemoteButton RightKey = new(KeyCode.JoystickButton15, 15, WebInputDevice.Gamepad);
+        public readonly TVRemoteButton OkButton = new(KeyCode.JoystickButton0, 13, WebInputDevice.Keyboard);
+        public readonly TVRemoteButton UpButton = new(KeyCode.JoystickButton12, 12, WebInputDevice.Gamepad);
+        public readonly TVRemoteButton DownButton = new(KeyCode.JoystickButton13, 13, WebInputDevice.Gamepad);
+        public readonly TVRemoteButton LeftButton = new(KeyCode.JoystickButton14, 14, WebInputDevice.Gamepad);
+        public readonly TVRemoteButton RightButton = new(KeyCode.JoystickButton15, 15, WebInputDevice.Gamepad);
 
         public static bool IsRunningOnWeb
         {
