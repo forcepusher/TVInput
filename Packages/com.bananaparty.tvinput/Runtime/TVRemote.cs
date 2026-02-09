@@ -29,11 +29,11 @@ namespace BananaParty.TVInput
 
         public void PollInput()
         {
-            SubmitKey.PollInput();
-            UpKey.PollInput();
-            DownKey.PollInput();
-            LeftKey.PollInput();
-            RightKey.PollInput();
+            //SubmitKey.PollInput();
+            //UpKey.PollInput();
+            //DownKey.PollInput();
+            //LeftKey.PollInput();
+            //RightKey.PollInput();
         }
     }
 }
