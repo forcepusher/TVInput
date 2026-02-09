@@ -22,11 +22,6 @@ namespace BananaParty.Input.TVRemote
             }
         }
 
-        public void Initialize()
-        {
-
-        }
-
         public void PollInput()
         {
             //SubmitKey.PollInput();

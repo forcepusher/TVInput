@@ -23,6 +23,11 @@ namespace BananaParty.Input.TVRemote
             _webKeyCode = webKeyCode;
             _webInputDeviceType = webInputDeviceType;
 
+            // This fucking sucks
+            // Poll input like all the normal people do
+            if (TVRemote.IsRunningOnWeb)
+                WebInputEventBridge.Subscribe(webKeyCode, (int)webInputDeviceType);
+
             //if (TVRemote.IsRunningOnWeb)
             //    KeyInitialize(webKeyIndex, (int)webInputSource);
         }
