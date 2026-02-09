@@ -44,10 +44,10 @@ namespace BananaParty.Input.TVRemote
 
         public void PollInput()
         {
-            while (WebInputBridge.HasUnreadPressEventsForKey())
+            while (WebInputBridge.ReadPressEventsForKey())
                 PressEventHub.AddEvent(new PressEvent(Time.realtimeSinceStartup));
 
-            while (WebInputBridge.HasUnreadReleaseEventsForKey())
+            while (WebInputBridge.ReadReleaseEventsForKey())
                 PressEventHub.AddEvent(new PressEvent(Time.realtimeSinceStartup));
         }
 

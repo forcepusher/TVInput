@@ -11,6 +11,16 @@ namespace BananaParty.Input.TVRemote
             WebInputBridgeRegisterButton((int)webInputDeviceType, webKeyCode);
         }
 
+        public static bool ReadPressEventsForKey(WebInputDeviceType, int webKeyCode)
+        {
+
+        }
+
+        public static bool ReadReleaseEventsForKey(WebInputDeviceType, int webKeyCode)
+        {
+
+        }
+
         [DllImport("__Internal")]
         private static extern void WebInputBridgeRegisterButton(int webInputDeviceType, int webKeyCode);
 
