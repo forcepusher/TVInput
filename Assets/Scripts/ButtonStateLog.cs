@@ -1,9 +1,15 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace BananaParty.Input.TVRemote.Sample
 {
-    public class ButtonStateText : MonoBehaviour
+    public class ButtonStateLog : MonoBehaviour
     {
+        [SerializeField]
+        private Text _text;
+
+        private string _eventLog;
+
         private TVRemote _tvRemote = new();
 
         private EventQueue<PressEvent> _okButtonPressEventQueue;
@@ -20,8 +26,6 @@ namespace BananaParty.Input.TVRemote.Sample
 
         private EventQueue<PressEvent> _rightButtonPressEventQueue;
         private EventQueue<ReleaseEvent> _rightButtonReleaseEventQueue;
-
-        private string _eventLog;
 
         private void OnEnable()
         {
@@ -62,11 +66,15 @@ namespace BananaParty.Input.TVRemote.Sample
         // Yes, FixedUpdate with input is intentional
         private void FixedUpdate()
         {
+            string currentStateText = string.Empty;
+
+            currentStateText = $"{_tvRemote.OkButton.IsHeld}" + currentStateText;
+
             while (_okButtonPressEventQueue.HasUnreadEvents)
                 _eventLog = $"{nameof(_tvRemote.OkButton)} press at {_okButtonPressEventQueue.Read().Time}\n" + _eventLog;
 
             while (_okButtonReleaseEventQueue.HasUnreadEvents)
-                _eventLog = $"{nameof(_tvRemote.OkButton)} release at {_okButtonPressEventQueue.Read().Time}\n" + _eventLog;
+                _eventLog = $"{nameof(_tvRemote.OkButton)} release at {_okButtonReleaseEventQueue.Read().Time}\n" + _eventLog;
         }
     }
 }

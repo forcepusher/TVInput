@@ -15,6 +15,8 @@ namespace BananaParty.Input.TVRemote
         //private int _pressCount;
         //private int _releaseCount;
 
+        public bool IsHeld { get; private set; }
+
         public TVRemoteButton(KeyCode unityKeyCode, int webKeyIndex, WebInputDevice webInputDevice)
         {
             _unityKeyCode = unityKeyCode;
