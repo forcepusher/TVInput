@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace BananaParty.TVInput
+namespace BananaParty.Input.TVRemote
 {
     public class EventQueue<TEventPayload>
     {

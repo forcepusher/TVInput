@@ -1,5 +1,5 @@
 {
-    "name": "BamamaParty.TVInput",
+    "name": "BamamaParty.Input.TVRemote",
     "rootNamespace": "",
     "references": [],
     "includePlatforms": [],

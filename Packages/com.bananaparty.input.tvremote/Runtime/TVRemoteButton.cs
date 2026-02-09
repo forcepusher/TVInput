@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
 using UnityEngine;
 
-namespace BananaParty.TVInput
+namespace BananaParty.Input.TVRemote
 {
     public class TVRemoteButton
     {

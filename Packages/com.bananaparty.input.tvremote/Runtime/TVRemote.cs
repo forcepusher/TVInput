@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BananaParty.TVInput
+namespace BananaParty.Input.TVRemote
 {
     public class TVRemote
     {

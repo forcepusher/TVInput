@@ -1,9 +1,0 @@
-{
-  "name": "com.bananaparty.tvinput",
-  "version": "1.0.0",
-  "type": "library",
-  "displayName": "TV Input",
-  "unity": "2022.3",
-  "description": "Fully cross-platform input from TV remotes and gamepads",
-  "author": "github.com/forcepusher"
-}

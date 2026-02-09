@@ -1,4 +1,4 @@
 ﻿<Solution>
-  <Project Path="BamamaParty.TVInput.csproj" />
+  <Project Path="BamamaParty.Input.TVRemote.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
 </Solution>

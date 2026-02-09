@@ -1,4 +1,4 @@
-namespace BananaParty.TVInput
+namespace BananaParty.Input.TVRemote
 {
     public enum WebInputDevice
     {
