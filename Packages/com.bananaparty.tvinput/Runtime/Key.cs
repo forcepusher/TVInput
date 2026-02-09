@@ -7,12 +7,12 @@ namespace BananaParty.TVInput
     {
         private readonly KeyCode _unityKeyCode;
         private readonly int _webKeyIndex;
-        private readonly WebInputSource _webInputSource;
+        private readonly WebInputDevice _webInputSource;
 
         private int _pressCount;
         private int _releaseCount;
 
-        public Key(KeyCode unityKeyCode, int webKeyIndex, WebInputSource webInputSource)
+        public Key(KeyCode unityKeyCode, int webKeyIndex, WebInputDevice webInputSource)
         {
             _unityKeyCode = unityKeyCode;
             _webKeyIndex = webKeyIndex;
@@ -45,7 +45,7 @@ namespace BananaParty.TVInput
         [DllImport("__Internal")]
         private static extern bool GetKeyIsHeld(int webKeyIndex, int webInputSource);
 
-        public int ConsumePresses(int webKeyIndex, WebInputSource webInputSource)
+        public int ConsumePresses(int webKeyIndex, WebInputDevice webInputSource)
         {
             if (TVRemote.IsRunningOnWeb)
             {
@@ -62,7 +62,7 @@ namespace BananaParty.TVInput
         [DllImport("__Internal")]
         private static extern int KeyConsumePresses(int webKeyIndex, int webInputSource);
 
-        public int PeekPresses(int webKeyIndex, WebInputSource webInputSource)
+        public int PeekPresses(int webKeyIndex, WebInputDevice webInputSource)
         {
             if (TVRemote.IsRunningOnWeb)
                 return KeyPeekPresses(webKeyIndex, (int)webInputSource);
@@ -73,7 +73,7 @@ namespace BananaParty.TVInput
         [DllImport("__Internal")]
         private static extern int KeyPeekPresses(int webKeyIndex, int webInputSource);
 
-        public int ConsumeReleases(int webKeyIndex, WebInputSource webInputSource)
+        public int ConsumeReleases(int webKeyIndex, WebInputDevice webInputSource)
         {
             if (TVRemote.IsRunningOnWeb)
             {
@@ -90,7 +90,7 @@ namespace BananaParty.TVInput
         [DllImport("__Internal")]
         private static extern int KeyConsumeReleases(int webKeyIndex, int webInputSource);
 
-        public int PeekReleases(int webKeyIndex, WebInputSource webInputSource)
+        public int PeekReleases(int webKeyIndex, WebInputDevice webInputSource)
         {
             if (TVRemote.IsRunningOnWeb)
                 return KeyPeekReleases(webKeyIndex, (int)webInputSource);

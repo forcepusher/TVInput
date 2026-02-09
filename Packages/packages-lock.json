@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.bananaparty.tvinput": {
-      "version": "file:com.bananaparty.tvinput.web",
+      "version": "file:com.bananaparty.tvinput",
       "depth": 0,
       "source": "embedded",
       "dependencies": {}
