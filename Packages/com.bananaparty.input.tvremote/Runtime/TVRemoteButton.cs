@@ -9,8 +9,8 @@ namespace BananaParty.Input.TVRemote
         private readonly int _webKeyIndex;
         private readonly WebInputDevice _webInputDevice;
 
-        private readonly EventHub<PressEvent> PressEventHub = new();
-        private readonly EventHub<ReleaseEvent> ReleaseEventHub = new();
+        public readonly EventHub<PressEvent> PressEventHub = new();
+        public readonly EventHub<ReleaseEvent> ReleaseEventHub = new();
 
         //private int _pressCount;
         //private int _releaseCount;
