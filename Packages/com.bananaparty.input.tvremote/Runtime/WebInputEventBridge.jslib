@@ -1,8 +1,8 @@
-const webInputEventBridgeLibrary = {
+const webInputBridgeLibrary = {
 
   // Class definition.
 
-  $eventBridge: {
+  $webInputBridge: {
     // Per-key state: key = "inputSource_keyIndex", value = { pressCount, releaseCount }
     keyStates: {},
 
@@ -61,30 +61,10 @@ const webInputEventBridgeLibrary = {
 
   // External C# calls.
 
-  KeyInitialize: function (keyIndex, inputSource) {
-    tvInput.keyInitialize(keyIndex, inputSource);
-  },
-
-  GetKeyIsHeld: function (keyIndex, inputSource) {
-    return tvInput.getKeyIsHeld(keyIndex, inputSource);
-  },
-
-  KeyConsumePresses: function (keyIndex, inputSource) {
-    return tvInput.consumePresses(keyIndex, inputSource);
-  },
-
-  KeyPeekPresses: function (keyIndex, inputSource) {
-    return tvInput.peekPresses(keyIndex, inputSource);
-  },
-
-  KeyConsumeReleases: function (keyIndex, inputSource) {
-    return tvInput.consumeReleases(keyIndex, inputSource);
-  },
-
-  KeyPeekReleases: function (keyIndex, inputSource) {
-    return tvInput.peekReleases(keyIndex, inputSource);
+  WebInputBridgeRegisterButton: function (webInputDeviceType, webKeyCode) {
+    tvInput.keyInitialize(webInputDeviceType, webKeyCode);
   }
 }
 
-autoAddDeps(webInputEventBridgeLibrary, '$eventBridge');
-mergeInto(LibraryManager.library, webInputEventBridgeLibrary);
+autoAddDeps(webInputBridgeLibrary, '$eventBridge');
+mergeInto(LibraryManager.library, webInputBridgeLibrary);
