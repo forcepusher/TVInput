@@ -6,8 +6,8 @@ namespace BananaParty.Input.TVRemote
     public class TVRemoteButton
     {
         private readonly KeyCode _unityKeyCode;
-        private readonly int _webKeyIndex;
-        private readonly WebInputDevice _webInputDevice;
+        private readonly int _webKeyCode;
+        private readonly WebInputDeviceType _webInputDeviceType;
 
         public readonly EventHub<PressEvent> PressEventHub = new();
         public readonly EventHub<ReleaseEvent> ReleaseEventHub = new();
@@ -17,11 +17,11 @@ namespace BananaParty.Input.TVRemote
 
         public bool IsHeld { get; private set; }
 
-        public TVRemoteButton(KeyCode unityKeyCode, int webKeyIndex, WebInputDevice webInputDevice)
+        public TVRemoteButton(KeyCode unityKeyCode, int webKeyCode, WebInputDeviceType webInputDeviceType)
         {
             _unityKeyCode = unityKeyCode;
-            _webKeyIndex = webKeyIndex;
-            _webInputDevice = webInputDevice;
+            _webKeyCode = webKeyCode;
+            _webInputDeviceType = webInputDeviceType;
 
             //if (TVRemote.IsRunningOnWeb)
             //    KeyInitialize(webKeyIndex, (int)webInputSource);
