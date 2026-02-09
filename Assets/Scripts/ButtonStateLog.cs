@@ -72,9 +72,42 @@ namespace BananaParty.Input.TVRemote.Sample
             while (_okButtonReleaseEventQueue.HasUnreadEvents)
                 _eventLog = $"{nameof(_tvRemote.OkButton)} release at {_okButtonReleaseEventQueue.Read().Time}\n" + _eventLog;
 
+
+            while (_upButtonPressEventQueue.HasUnreadEvents)
+                _eventLog = $"{nameof(_tvRemote.UpButton)} press at {_upButtonPressEventQueue.Read().Time}\n" + _eventLog;
+
+            while (_upButtonReleaseEventQueue.HasUnreadEvents)
+                _eventLog = $"{nameof(_tvRemote.UpButton)} release at {_upButtonReleaseEventQueue.Read().Time}\n" + _eventLog;
+
+
+            while (_downButtonPressEventQueue.HasUnreadEvents)
+                _eventLog = $"{nameof(_tvRemote.DownButton)} press at {_downButtonPressEventQueue.Read().Time}\n" + _eventLog;
+
+            while (_downButtonReleaseEventQueue.HasUnreadEvents)
+                _eventLog = $"{nameof(_tvRemote.DownButton)} release at {_downButtonReleaseEventQueue.Read().Time}\n" + _eventLog;
+
+
+            while (_leftButtonPressEventQueue.HasUnreadEvents)
+                _eventLog = $"{nameof(_tvRemote.LeftButton)} press at {_leftButtonPressEventQueue.Read().Time}\n" + _eventLog;
+
+            while (_leftButtonReleaseEventQueue.HasUnreadEvents)
+                _eventLog = $"{nameof(_tvRemote.LeftButton)} release at {_leftButtonReleaseEventQueue.Read().Time}\n" + _eventLog;
+
+
+            while (_rightButtonPressEventQueue.HasUnreadEvents)
+                _eventLog = $"{nameof(_tvRemote.RightButton)} press at {_rightButtonPressEventQueue.Read().Time}\n" + _eventLog;
+
+            while (_rightButtonReleaseEventQueue.HasUnreadEvents)
+                _eventLog = $"{nameof(_tvRemote.RightButton)} release at {_rightButtonReleaseEventQueue.Read().Time}\n" + _eventLog;
+
+
             string currentStateText = string.Empty;
 
             currentStateText = $"{nameof(_tvRemote.OkButton)} held = {_tvRemote.OkButton.IsHeld}\n" + currentStateText;
+            currentStateText = $"{nameof(_tvRemote.UpButton)} held = {_tvRemote.UpButton.IsHeld}\n" + currentStateText;
+            currentStateText = $"{nameof(_tvRemote.DownButton)} held = {_tvRemote.DownButton.IsHeld}\n" + currentStateText;
+            currentStateText = $"{nameof(_tvRemote.LeftButton)} held = {_tvRemote.LeftButton.IsHeld}\n" + currentStateText;
+            currentStateText = $"{nameof(_tvRemote.RightButton)} held = {_tvRemote.RightButton.IsHeld}\n" + currentStateText;
 
             _text.text = currentStateText + "\n" + _eventLog;
         }
