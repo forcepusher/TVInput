@@ -13,12 +13,22 @@ namespace BananaParty.Input.TVRemote
             WebInputBridgeRegisterButton((int)webInputDeviceType, webKeyCode);
         }
 
-        public static PressEvent ReadPressEventsForKey(WebInputDeviceType webInputDeviceType, int webKeyCode)
+        public static bool HasUnreadPressEvents(WebInputDeviceType webInputDeviceType, int webKeyCode)
         {
 
         }
 
-        public static PressEvent ReadReleaseEventsForKey(WebInputDeviceType webInputDeviceType, int webKeyCode)
+        public static bool HasUnreadReleaseEvents(WebInputDeviceType webInputDeviceType, int webKeyCode)
+        {
+
+        }
+
+        public static PressEvent ReadPressEvents(WebInputDeviceType webInputDeviceType, int webKeyCode)
+        {
+
+        }
+
+        public static ReleaseEvent ReadReleaseEvents(WebInputDeviceType webInputDeviceType, int webKeyCode)
         {
 
         }
