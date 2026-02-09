@@ -17,19 +17,38 @@ namespace BananaParty.Input.TVRemote
 
         public bool IsHeld { get; private set; }
 
-        public TVRemoteButton(KeyCode unityKeyCode, int webKeyCode, WebInputDeviceType webInputDeviceType)
+        public TVRemoteButton(WebInputDeviceType webInputDeviceType, int webKeyCode, KeyCode unityKeyCode)
         {
             _unityKeyCode = unityKeyCode;
             _webKeyCode = webKeyCode;
             _webInputDeviceType = webInputDeviceType;
 
-            // This fucking sucks
-            // Poll input like all the normal people do
-            if (TVRemote.IsRunningOnWeb)
-                WebInputEventBridge.Subscribe(webKeyCode, (int)webInputDeviceType);
+            if (IsRunningOnWeb)
+                WebInputEventBridge.RegisterButton(webInputDeviceType, webKeyCode);
 
             //if (TVRemote.IsRunningOnWeb)
             //    KeyInitialize(webKeyIndex, (int)webInputSource);
+        }
+
+        public static bool IsRunningOnWeb
+        {
+            get
+            {
+#if UNITY_WEBGL && !UNITY_EDITOR
+                return true;
+#else
+                return false;
+#endif
+            }
+        }
+
+        public void PollInput()
+        {
+            while (WebInputEventBridge.HasUnreadPressEventsForKey())
+                PressEventHub.AddEvent(new PressEvent(Time.realtimeSinceStartup));
+
+            while (WebInputEventBridge.HasUnreadReleaseEventsForKey())
+                PressEventHub.AddEvent(new PressEvent(Time.realtimeSinceStartup));
         }
 
         //[DllImport("__Internal")]
