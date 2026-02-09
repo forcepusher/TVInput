@@ -66,15 +66,17 @@ namespace BananaParty.Input.TVRemote.Sample
         // Yes, FixedUpdate with input is intentional
         private void FixedUpdate()
         {
-            string currentStateText = string.Empty;
-
-            currentStateText = $"{_tvRemote.OkButton.IsHeld}" + currentStateText;
-
             while (_okButtonPressEventQueue.HasUnreadEvents)
                 _eventLog = $"{nameof(_tvRemote.OkButton)} press at {_okButtonPressEventQueue.Read().Time}\n" + _eventLog;
 
             while (_okButtonReleaseEventQueue.HasUnreadEvents)
                 _eventLog = $"{nameof(_tvRemote.OkButton)} release at {_okButtonReleaseEventQueue.Read().Time}\n" + _eventLog;
+
+            string currentStateText = string.Empty;
+
+            currentStateText = $"{nameof(_tvRemote.OkButton)} held = {_tvRemote.OkButton.IsHeld}\n" + currentStateText;
+
+            _text.text = currentStateText + "\n" + _eventLog;
         }
     }
 }
