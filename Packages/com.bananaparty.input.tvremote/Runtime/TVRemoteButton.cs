@@ -48,7 +48,7 @@ namespace BananaParty.Input.TVRemote
                 PressEventHub.AddEvent(new PressEvent(Time.realtimeSinceStartup));
 
             while (WebInputBridge.ReadReleaseEventsForKey())
-                PressEventHub.AddEvent(new PressEvent(Time.realtimeSinceStartup));
+                PressEventHub.AddEvent(new ReleaseEvent(Time.realtimeSinceStartup));
         }
 
         //[DllImport("__Internal")]
