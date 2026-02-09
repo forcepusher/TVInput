@@ -62,7 +62,7 @@ const webInputBridgeLibrary = {
   // External C# calls.
 
   WebInputBridgeRegisterButton: function (webInputDeviceType, webKeyCode) {
-    tvInput.keyInitialize(webInputDeviceType, webKeyCode);
+    webInputBridge.registerButton(webInputDeviceType, webKeyCode);
   }
 }
 
