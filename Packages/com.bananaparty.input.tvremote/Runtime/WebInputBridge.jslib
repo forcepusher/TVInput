@@ -3,6 +3,9 @@ const webInputBridgeLibrary = {
   // Class definition.
 
   $webInputBridge: {
+    keyboardDeviceType: 0,
+    gamepadDeviceType: 1,
+
     onButtonPressCallbackPtr: undefined,
 
     onButtonReleaseCallbackPtr: undefined,
@@ -14,14 +17,14 @@ const webInputBridgeLibrary = {
       webInputBridge.onButtonReleaseCallbackPtr = onButtonReleaseCallbackPtr;
 
       document.addEventListener('keydown', function (keyEvent) {
-        if (webInputBridge.registeredButtons.some(registeredButton => registeredButton.webInputDeviceType === 0 && registeredButton.webKeyCode === keyEvent.keyCode)) {
-          webInputBridge.invokeButtonCallback(webInputBridge.onButtonPressCallbackPtr, 0, keyEvent.keyCode);
+        if (webInputBridge.registeredButtons.some(registeredButton => registeredButton.webInputDeviceType === webInputBridge.keyboardDeviceType && registeredButton.webKeyCode === keyEvent.keyCode)) {
+          webInputBridge.invokeButtonCallback(webInputBridge.onButtonPressCallbackPtr, webInputBridge.keyboardDeviceType, keyEvent.keyCode);
         }
       });
 
       document.addEventListener('keyup', function (keyEvent) {
-        if (webInputBridge.registeredButtons.some(registeredButton => registeredButton.webInputDeviceType === 0 && registeredButton.webKeyCode === keyEvent.keyCode)) {
-          webInputBridge.invokeButtonCallback(webInputBridge.onButtonReleaseCallbackPtr, 0, keyEvent.keyCode);
+        if (webInputBridge.registeredButtons.some(registeredButton => registeredButton.webInputDeviceType === webInputBridge.keyboardDeviceType && registeredButton.webKeyCode === keyEvent.keyCode)) {
+          webInputBridge.invokeButtonCallback(webInputBridge.onButtonReleaseCallbackPtr, webInputBridge.keyboardDeviceType, keyEvent.keyCode);
         }
       });
     },
@@ -36,15 +39,15 @@ const webInputBridgeLibrary = {
         const gp = gamepads[i];
         if (!gp) continue;
         for (let btn = 0; btn < gp.buttons.length; btn++) {
-          const registered = webInputBridge.registeredButtons.find(rb => rb.webInputDeviceType === 1 && rb.webKeyCode === btn);
+          const registered = webInputBridge.registeredButtons.find(rb => rb.webInputDeviceType === webInputBridge.gamepadDeviceType && rb.webKeyCode === btn);
           if (registered) {
             if (!gp.prevButtons) gp.prevButtons = [];
             const prev = gp.prevButtons[btn] || false;
             const curr = gp.buttons[btn].pressed;
             if (curr && !prev) {
-              webInputBridge.invokeButtonCallback(webInputBridge.onButtonPressCallbackPtr, 1, btn);
+              webInputBridge.invokeButtonCallback(webInputBridge.onButtonPressCallbackPtr, webInputBridge.gamepadDeviceType, btn);
             } else if (!curr && prev) {
-              webInputBridge.invokeButtonCallback(webInputBridge.onButtonReleaseCallbackPtr, 1, btn);
+              webInputBridge.invokeButtonCallback(webInputBridge.onButtonReleaseCallbackPtr, webInputBridge.gamepadDeviceType, btn);
             }
             gp.prevButtons[btn] = curr;
           }
@@ -69,6 +72,10 @@ const webInputBridgeLibrary = {
 
   WebInputBridgeRegisterButton: function (webInputDeviceType, webKeyCode) {
     webInputBridge.registerButton(webInputDeviceType, webKeyCode);
+  },
+
+  WebInputBridgePollGamepadInput: function () {
+    webInputBridge.pollGamepadInput();
   },
 }
 
