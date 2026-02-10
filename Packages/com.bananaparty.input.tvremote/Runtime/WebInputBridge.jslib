@@ -74,7 +74,7 @@ const webInputBridgeLibrary = {
     webInputBridge.registerButton(webInputDeviceType, webKeyCode);
   },
 
-  WebInputBridgePollGamepadInput: function () {
+  WebInputBridgePollInput: function () {
     webInputBridge.pollGamepadInput();
   },
 }

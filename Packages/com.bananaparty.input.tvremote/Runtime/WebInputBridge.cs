@@ -1,6 +1,7 @@
 using AOT;
 using System;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace BananaParty.Input.TVRemote
 {
@@ -13,6 +14,16 @@ namespace BananaParty.Input.TVRemote
         private static void Initialize()
         {
             WebInputBridgeInitialize(OnButtonPress, OnButtonRelease);
+            PollInputLoop();
+        }
+
+        private static async void PollInputLoop()
+        {
+            while (true)
+            {
+                WebInputBridgePollInput();
+                await Task.Yield();
+            }
         }
 
         [DllImport("__Internal")]
@@ -45,6 +56,9 @@ namespace BananaParty.Input.TVRemote
 
         [DllImport("__Internal")]
         private static extern void WebInputBridgeRegisterButton(int webInputDeviceType, int webKeyCode);
+
+        [DllImport("__Internal")]
+        private static extern void WebInputBridgePollInput();
 
         [MonoPInvokeCallback(typeof(Action<int, int>))]
         private static void OnButtonPress(int webInputDeviceType, int webKeyCode)
