@@ -6,8 +6,6 @@ namespace BananaParty.Input.TVRemote
 {
     public static class WebInputBridge
     {
-
-
         public static void RegisterButton(WebInputDeviceType webInputDeviceType, int webKeyCode)
         {
             WebInputBridgeRegisterButton((int)webInputDeviceType, webKeyCode);
