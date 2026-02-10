@@ -1,7 +1,8 @@
 using AOT;
 using System;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
+using UnityEngine;
+using UnityEngine.LowLevel;
 
 namespace BananaParty.Input.TVRemote
 {
@@ -14,17 +15,47 @@ namespace BananaParty.Input.TVRemote
         private static void Initialize()
         {
             WebInputBridgeInitialize(OnButtonPress, OnButtonRelease);
-            PollInputLoop();
+            InjectPollInputIntoPlayerLoop();
         }
 
-        private static async void PollInputLoop()
+        private static void InjectPollInputIntoPlayerLoop()
         {
-            while (true)
+            PlayerLoopSystem loop = PlayerLoop.GetCurrentPlayerLoop();
+            PlayerLoopSystem[] root = loop.subSystemList;
+            if (root == null) return;
+
+            int insertIndex = -1;
+            for (int i = 0; i < root.Length; i++)
             {
-                WebInputBridgePollInput();
-                await Task.Yield();
+                if (root[i].type != null && root[i].type.Name == "Update")
+                {
+                    insertIndex = i;
+                    break;
+                }
             }
+            if (insertIndex < 0) return;
+
+            var newList = new PlayerLoopSystem[root.Length + 1];
+            for (int i = 0; i < insertIndex; i++)
+                newList[i] = root[i];
+            newList[insertIndex] = new PlayerLoopSystem
+            {
+                type = typeof(PollInputRunner),
+                updateDelegate = PollInputUpdate
+            };
+            for (int i = insertIndex; i < root.Length; i++)
+                newList[i + 1] = root[i];
+
+            loop.subSystemList = newList;
+            PlayerLoop.SetPlayerLoop(loop);
         }
+
+        private static void PollInputUpdate()
+        {
+            WebInputBridgePollInput();
+        }
+
+        private static class PollInputRunner { }
 
         [DllImport("__Internal")]
         private static extern bool WebInputBridgeInitialize(Action<int, int> onButtonPressCallback, Action<int, int> onButtonReleaseCallback);
