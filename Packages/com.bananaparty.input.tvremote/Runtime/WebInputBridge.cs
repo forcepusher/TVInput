@@ -61,7 +61,10 @@ namespace BananaParty.Input.TVRemote
 
         public static void RegisterButton(WebInputDeviceType webInputDeviceType, int webKeyCode)
         {
-            WebInputBridgeRegisterButton((int)webInputDeviceType, webKeyCode);
+            if (webInputDeviceType == WebInputDeviceType.Keyboard)
+                WebInputBridgeRegisterKeyboardButton(webKeyCode);
+            else
+                WebInputBridgeRegisterGamepadButton(webKeyCode);
         }
 
         public static bool HasUnreadPressEvents(WebInputDeviceType webInputDeviceType, int webKeyCode)
@@ -85,7 +88,10 @@ namespace BananaParty.Input.TVRemote
         }
 
         [DllImport("__Internal")]
-        private static extern void WebInputBridgeRegisterButton(int webInputDeviceType, int webKeyCode);
+        private static extern void WebInputBridgeRegisterKeyboardButton(int webKeyCode);
+
+        [DllImport("__Internal")]
+        private static extern void WebInputBridgeRegisterGamepadButton(int webKeyCode);
 
         [DllImport("__Internal")]
         private static extern void WebInputBridgePollInput();
