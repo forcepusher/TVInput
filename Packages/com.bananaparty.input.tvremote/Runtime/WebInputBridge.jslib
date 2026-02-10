@@ -3,6 +3,10 @@ const webInputBridgeLibrary = {
   // Class definition.
 
   $webInputBridge: {
+    initialize: function (onButtonPressCallbackPtr, onButtonReleaseCallbackPtr) {
+
+    },
+
     getKeyIsHeld: function (keyIndex, inputSource) {
       return true;
     },
@@ -64,6 +68,10 @@ const webInputBridgeLibrary = {
   },
 
   // External C# calls.
+
+  WebInputBridgeInitialize: function (onButtonPressCallbackPtr, onButtonReleaseCallbackPtr) {
+    webInputBridge.initialize(onButtonPressCallbackPtr, onButtonReleaseCallbackPtr);
+  },
 
   WebInputBridgeRegisterButton: function (webInputDeviceType, webKeyCode) {
     webInputBridge.registerButton(webInputDeviceType, webKeyCode);
