@@ -75,5 +75,5 @@ const webInputBridgeLibrary = {
   },
 }
 
-autoAddDeps(webInputBridgeLibrary, '$eventBridge');
+autoAddDeps(webInputBridgeLibrary, '$webInputBridge');
 mergeInto(LibraryManager.library, webInputBridgeLibrary);
