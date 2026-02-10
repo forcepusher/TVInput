@@ -3,6 +3,10 @@ const webInputBridgeLibrary = {
   // Class definition.
 
   $webInputBridge: {
+    getKeyIsHeld: function (keyIndex, inputSource) {
+      return true;
+    },
+
     // // Per-key state: key = "inputSource_keyIndex", value = { pressCount, releaseCount }
     // keyStates: {},
 

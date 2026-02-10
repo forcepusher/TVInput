@@ -6,6 +6,18 @@ namespace BananaParty.Input.TVRemote
 {
     public static class WebInputBridge
     {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+#endif
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Unity InitializeOnLoadMethod")]
+        private static void Initialize()
+        {
+            WebInputBridgeInitialize(OnButtonPress, OnButtonRelease);
+        }
+
+        [DllImport("__Internal")]
+        private static extern bool WebInputBridgeInitialize(Action<int, int> onButtonPressCallback, Action<int, int> onButtonReleaseCallback);
+
         public static void RegisterButton(WebInputDeviceType webInputDeviceType, int webKeyCode)
         {
             WebInputBridgeRegisterButton((int)webInputDeviceType, webKeyCode);
@@ -34,13 +46,13 @@ namespace BananaParty.Input.TVRemote
         [DllImport("__Internal")]
         private static extern void WebInputBridgeRegisterButton(int webInputDeviceType, int webKeyCode);
 
-        [MonoPInvokeCallback(typeof(Action))]
+        [MonoPInvokeCallback(typeof(Action<int, int>))]
         private static void OnButtonPress(int webInputDeviceType, int webKeyCode)
         {
             
         }
 
-        [MonoPInvokeCallback(typeof(Action))]
+        [MonoPInvokeCallback(typeof(Action<int, int>))]
         private static void OnButtonRelease(int webInputDeviceType, int webKeyCode)
         {
 
