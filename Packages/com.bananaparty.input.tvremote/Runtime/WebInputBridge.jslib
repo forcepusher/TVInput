@@ -18,6 +18,7 @@ const webInputBridgeLibrary = {
           webInputBridge.invokeButtonCallback(webInputBridge.onButtonPressCallbackPtr, 0, keyEvent.keyCode);
         }
       });
+      
       document.addEventListener('keyup', function (keyEvent) {
         if (webInputBridge.registeredButtons.some(registeredButton => registeredButton.webInputDeviceType === 0 && registeredButton.webKeyCode === keyEvent.keyCode)) {
           webInputBridge.invokeButtonCallback(webInputBridge.onButtonReleaseCallbackPtr, 0, keyEvent.keyCode);
