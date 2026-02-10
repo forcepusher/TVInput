@@ -29,27 +29,23 @@ const webInputBridgeLibrary = {
       });
     },
 
-    // Yes, if you add a polling method that Unity calls regularly (e.g. from Update()), you can avoid an internal polling loop.
-    // Below is a method that performs a single poll of gamepad state.
-    // Call this function from C# to process gamepad input at your desired frequency.
-
     pollGamepadInput: function () {
       const gamepads = navigator.getGamepads ? navigator.getGamepads() : [];
-      for (let i = 0; i < gamepads.length; i++) {
-        const gp = gamepads[i];
-        if (!gp) continue;
-        for (let btn = 0; btn < gp.buttons.length; btn++) {
-          const registered = webInputBridge.registeredButtons.find(rb => rb.webInputDeviceType === webInputBridge.gamepadDeviceType && rb.webKeyCode === btn);
-          if (registered) {
-            if (!gp.prevButtons) gp.prevButtons = [];
-            const prev = gp.prevButtons[btn] || false;
-            const curr = gp.buttons[btn].pressed;
-            if (curr && !prev) {
-              webInputBridge.invokeButtonCallback(webInputBridge.onButtonPressCallbackPtr, webInputBridge.gamepadDeviceType, btn);
-            } else if (!curr && prev) {
-              webInputBridge.invokeButtonCallback(webInputBridge.onButtonReleaseCallbackPtr, webInputBridge.gamepadDeviceType, btn);
+      for (let gamepadIndex = 0; gamepadIndex < gamepads.length; gamepadIndex++) {
+        const gamepad = gamepads[gamepadIndex];
+        if (!gamepad) continue;
+        for (let buttonIndex = 0; buttonIndex < gamepad.buttons.length; buttonIndex++) {
+          const registeredButton = webInputBridge.registeredButtons.find(registeredButton => registeredButton.webInputDeviceType === webInputBridge.gamepadDeviceType && registeredButton.webKeyCode === buttonIndex);
+          if (registeredButton) {
+            if (!gamepad.previousButtons) gamepad.previousButtons = [];
+            const previous = gamepad.previousButtons[buttonIndex] || false;
+            const current = gamepad.buttons[buttonIndex].pressed;
+            if (current && !previous) {
+              webInputBridge.invokeButtonCallback(webInputBridge.onButtonPressCallbackPtr, webInputBridge.gamepadDeviceType, buttonIndex);
+            } else if (!current && previous) {
+              webInputBridge.invokeButtonCallback(webInputBridge.onButtonReleaseCallbackPtr, webInputBridge.gamepadDeviceType, buttonIndex);
             }
-            gp.prevButtons[btn] = curr;
+            gamepad.previousButtons[buttonIndex] = current;
           }
         }
       }
