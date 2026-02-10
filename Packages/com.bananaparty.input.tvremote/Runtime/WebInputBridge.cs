@@ -1,7 +1,6 @@
 using AOT;
 using System;
 using System.Runtime.InteropServices;
-using UnityEngine;
 using UnityEngine.LowLevel;
 
 namespace BananaParty.Input.TVRemote
@@ -16,6 +15,13 @@ namespace BananaParty.Input.TVRemote
         {
             WebInputBridgeInitialize(OnButtonPress, OnButtonRelease);
             InjectPollInputIntoPlayerLoop();
+        }
+
+        private static class WebPollInputRunner {
+            public static void PollInputUpdate()
+            {
+                WebInputBridgePollInput();
+            }
         }
 
         private static void InjectPollInputIntoPlayerLoop()
@@ -40,8 +46,8 @@ namespace BananaParty.Input.TVRemote
                 newList[i] = root[i];
             newList[insertIndex] = new PlayerLoopSystem
             {
-                type = typeof(PollInputRunner),
-                updateDelegate = PollInputUpdate
+                type = typeof(WebPollInputRunner),
+                updateDelegate = WebPollInputRunner.PollInputUpdate
             };
             for (int i = insertIndex; i < root.Length; i++)
                 newList[i + 1] = root[i];
@@ -49,13 +55,6 @@ namespace BananaParty.Input.TVRemote
             loop.subSystemList = newList;
             PlayerLoop.SetPlayerLoop(loop);
         }
-
-        private static void PollInputUpdate()
-        {
-            WebInputBridgePollInput();
-        }
-
-        private static class PollInputRunner { }
 
         [DllImport("__Internal")]
         private static extern bool WebInputBridgeInitialize(Action<int, int> onButtonPressCallback, Action<int, int> onButtonReleaseCallback);
