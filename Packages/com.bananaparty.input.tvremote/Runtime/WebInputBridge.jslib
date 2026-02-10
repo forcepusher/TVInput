@@ -13,8 +13,16 @@ const webInputBridgeLibrary = {
     },
 
     registerButton: function (webInputDeviceType, webKeyCode) {
-      
+
     },
+
+    invokeButtonPressCallback: function (webInputDeviceType, webKeyCode) {
+      {{{ makeDynCall('vii', 'onInBackgroundChangeCallbackPtr') }}}(webInputDeviceType, webKeyCode);
+    },
+
+    invokeButtonReleaseCallback: function (webInputDeviceType, webKeyCode) {
+
+    }
   },
 
   // External C# calls.
