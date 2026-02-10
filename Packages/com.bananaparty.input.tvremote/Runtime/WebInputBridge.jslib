@@ -12,8 +12,8 @@ const webInputBridgeLibrary = {
       webInputBridge.onButtonReleaseCallbackPtr = onButtonReleaseCallbackPtr;
     },
 
-    getKeyIsHeld: function (keyIndex, inputSource) {
-      return true;
+    registerButton: function (webInputDeviceType, webKeyCode) {
+      
     },
   },
 
