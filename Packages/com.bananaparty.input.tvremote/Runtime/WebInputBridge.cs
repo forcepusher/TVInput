@@ -9,18 +9,6 @@ namespace BananaParty.Input.TVRemote
 {
     public static class WebInputBridge
     {
-        private readonly struct InputKey
-        {
-            public readonly WebInputDeviceType DeviceType;
-            public readonly int KeyCode;
-
-            public InputKey(WebInputDeviceType deviceType, int keyCode)
-            {
-                DeviceType = deviceType;
-                KeyCode = keyCode;
-            }
-        }
-
         private static readonly Dictionary<InputKey, Queue<PressEvent>> _pressEventQueues = new();
         private static readonly Dictionary<InputKey, Queue<ReleaseEvent>> _releaseEventQueues = new();
 
@@ -124,6 +112,18 @@ namespace BananaParty.Input.TVRemote
         {
             var key = new InputKey((WebInputDeviceType)webInputDeviceType, webKeyCode);
             _releaseEventQueues[key].Enqueue(new ReleaseEvent(Time.realtimeSinceStartup));
+        }
+
+        private readonly struct InputKey
+        {
+            public readonly WebInputDeviceType DeviceType;
+            public readonly int KeyCode;
+
+            public InputKey(WebInputDeviceType deviceType, int keyCode)
+            {
+                DeviceType = deviceType;
+                KeyCode = keyCode;
+            }
         }
     }
 }
