@@ -76,6 +76,9 @@ namespace BananaParty.Input.TVRemote
 
         public static void RegisterButton(WebInputDeviceType webInputDeviceType, int webKeyCode)
         {
+            var key = new InputKey(webInputDeviceType, webKeyCode);
+            _pressEventQueues[key] = new Queue<PressEvent>();
+            _releaseEventQueues[key] = new Queue<ReleaseEvent>();
             WebInputBridgeRegisterButton((int)webInputDeviceType, webKeyCode);
         }
 
@@ -113,8 +116,6 @@ namespace BananaParty.Input.TVRemote
         private static void OnButtonPress(int webInputDeviceType, int webKeyCode)
         {
             var key = new InputKey((WebInputDeviceType)webInputDeviceType, webKeyCode);
-            if (!_pressEventQueues.ContainsKey(key))
-                _pressEventQueues[key] = new Queue<PressEvent>();
             _pressEventQueues[key].Enqueue(new PressEvent(Time.realtimeSinceStartup));
         }
 
@@ -122,8 +123,6 @@ namespace BananaParty.Input.TVRemote
         private static void OnButtonRelease(int webInputDeviceType, int webKeyCode)
         {
             var key = new InputKey((WebInputDeviceType)webInputDeviceType, webKeyCode);
-            if (!_releaseEventQueues.ContainsKey(key))
-                _releaseEventQueues[key] = new Queue<ReleaseEvent>();
             _releaseEventQueues[key].Enqueue(new ReleaseEvent(Time.realtimeSinceStartup));
         }
     }
