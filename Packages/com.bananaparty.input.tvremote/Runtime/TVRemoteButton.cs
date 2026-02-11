@@ -19,13 +19,13 @@ namespace BananaParty.Input.TVRemote
             _webKeyCode = webKeyCode;
             _webInputDeviceType = webInputDeviceType;
 
-            if (IsRunningOnWeb)
+            if (TVRemote.IsRunningOnWeb)
                 WebInputBridge.RegisterButton(webInputDeviceType, webKeyCode);
         }
 
         public void PollInput()
         {
-            if (IsRunningOnWeb)
+            if (TVRemote.IsRunningOnWeb)
             {
                 while (WebInputBridge.HasUnreadPressEvents(_webInputDeviceType, _webKeyCode))
                     PressEventHub.AddEvent(WebInputBridge.ReadPressEvents(_webInputDeviceType, _webKeyCode));

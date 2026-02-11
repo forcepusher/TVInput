@@ -22,9 +22,9 @@ namespace BananaParty.Input.TVRemote
 
         private static void PollInput()
         {
-#if UNITY_WEBGL && !UNITY_EDITOR
-            WebInputBridge.WebInputBridgePollInput();
-#endif
+            if (IsRunningOnWeb)
+                WebInputBridge.WebInputBridgePollInput();
+            
             OkButton.PollInput();
             UpButton.PollInput();
             DownButton.PollInput();
@@ -46,6 +46,9 @@ namespace BananaParty.Input.TVRemote
 
         private static void InjectPollInputIntoPlayerLoop()
         {
+            if (!IsRunningOnWeb)
+                return;
+
             PlayerLoopSystem loop = PlayerLoop.GetCurrentPlayerLoop();
             PlayerLoopSystem[] root = loop.subSystemList;
             if (root == null) return;
