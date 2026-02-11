@@ -9,7 +9,7 @@ namespace BananaParty.Input.TVRemote
 {
     public static class WebInputBridge
     {
-        private struct InputKey
+        private readonly struct InputKey
         {
             public readonly WebInputDeviceType DeviceType;
             public readonly int KeyCode;
