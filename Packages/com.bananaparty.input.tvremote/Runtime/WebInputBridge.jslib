@@ -40,9 +40,9 @@ const webInputBridgeLibrary = {
           continue;
         }
         
-        let previousPressed = webInputBridge.previousGamepadButtonState[gamepadIndex];
-        if (!previousPressed) {
-          previousPressed = webInputBridge.previousGamepadButtonState[gamepadIndex] = [];
+        let previousButtonStates = webInputBridge.previousGamepadButtonState[gamepadIndex];
+        if (!previousButtonStates) {
+          previousButtonStates = webInputBridge.previousGamepadButtonState[gamepadIndex] = [];
         }
 
         for (let buttonIndex = 0; buttonIndex < gamepad.buttons.length; buttonIndex++) {
@@ -50,7 +50,7 @@ const webInputBridgeLibrary = {
             continue;
           }
 
-          const previous = previousPressed[buttonIndex] || false;
+          const previous = previousButtonStates[buttonIndex] || false;
           const current = gamepad.buttons[buttonIndex].pressed;
 
           if (current && !previous) {
@@ -59,7 +59,7 @@ const webInputBridgeLibrary = {
             webInputBridge.invokeButtonCallback(webInputBridge.onButtonReleaseCallbackPtr, webInputBridge.gamepadDeviceType, buttonIndex);
           }
 
-          previousPressed[buttonIndex] = current;
+          previousButtonStates[buttonIndex] = current;
         }
       }
     },
