@@ -34,17 +34,28 @@ const webInputBridgeLibrary = {
       const gamepads = navigator.getGamepads ? navigator.getGamepads() : [];
       for (let gamepadIndex = 0; gamepadIndex < gamepads.length; gamepadIndex++) {
         const gamepad = gamepads[gamepadIndex];
-        if (!gamepad) continue;
+        if (!gamepad) {
+          continue;
+        }
+        
         for (let buttonIndex = 0; buttonIndex < gamepad.buttons.length; buttonIndex++) {
-          if (!webInputBridge.registeredGamepadButtons[buttonIndex]) continue;
-          if (!gamepad.previousButtons) gamepad.previousButtons = [];
+          if (!webInputBridge.registeredGamepadButtons[buttonIndex]) {
+            continue;
+          }
+
+          if (!gamepad.previousButtons) {
+            gamepad.previousButtons = [];
+          }
+
           const previous = gamepad.previousButtons[buttonIndex] || false;
           const current = gamepad.buttons[buttonIndex].pressed;
+
           if (current && !previous) {
             webInputBridge.invokeButtonCallback(webInputBridge.onButtonPressCallbackPtr, webInputBridge.gamepadDeviceType, buttonIndex);
           } else if (!current && previous) {
             webInputBridge.invokeButtonCallback(webInputBridge.onButtonReleaseCallbackPtr, webInputBridge.gamepadDeviceType, buttonIndex);
           }
+          
           gamepad.previousButtons[buttonIndex] = current;
         }
       }
