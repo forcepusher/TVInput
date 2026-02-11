@@ -34,11 +34,9 @@ namespace BananaParty.Input.TVRemote
             InjectPollInputIntoPlayerLoop();
         }
 
-        private static class WebPollInputRunner {
-            public static void PollInput()
-            {
-                WebInputBridgePollInput();
-            }
+        private static void PollInput()
+        {
+            WebInputBridgePollInput();
         }
 
         private static void InjectPollInputIntoPlayerLoop()
@@ -63,8 +61,8 @@ namespace BananaParty.Input.TVRemote
                 newList[i] = root[i];
             newList[insertIndex] = new PlayerLoopSystem
             {
-                type = typeof(WebPollInputRunner),
-                updateDelegate = WebPollInputRunner.PollInput
+                type = typeof(WebInputBridge),
+                updateDelegate = PollInput
             };
             for (int i = insertIndex; i < root.Length; i++)
                 newList[i + 1] = root[i];
@@ -115,24 +113,18 @@ namespace BananaParty.Input.TVRemote
         private static void OnButtonPress(int webInputDeviceType, int webKeyCode)
         {
             var key = new InputKey((WebInputDeviceType)webInputDeviceType, webKeyCode);
-            if (!_pressEventQueues.TryGetValue(key, out var queue))
-            {
-                queue = new Queue<PressEvent>();
-                _pressEventQueues[key] = queue;
-            }
-            queue.Enqueue(new PressEvent(Time.realtimeSinceStartup));
+            if (!_pressEventQueues.ContainsKey(key))
+                _pressEventQueues[key] = new Queue<PressEvent>();
+            _pressEventQueues[key].Enqueue(new PressEvent(Time.realtimeSinceStartup));
         }
 
         [MonoPInvokeCallback(typeof(Action<int, int>))]
         private static void OnButtonRelease(int webInputDeviceType, int webKeyCode)
         {
             var key = new InputKey((WebInputDeviceType)webInputDeviceType, webKeyCode);
-            if (!_releaseEventQueues.TryGetValue(key, out var queue))
-            {
-                queue = new Queue<ReleaseEvent>();
-                _releaseEventQueues[key] = queue;
-            }
-            queue.Enqueue(new ReleaseEvent(Time.realtimeSinceStartup));
+            if (!_releaseEventQueues.ContainsKey(key))
+                _releaseEventQueues[key] = new Queue<ReleaseEvent>();
+            _releaseEventQueues[key].Enqueue(new ReleaseEvent(Time.realtimeSinceStartup));
         }
     }
 }
