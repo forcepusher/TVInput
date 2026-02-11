@@ -34,18 +34,18 @@ const webInputBridgeLibrary = {
 
     pollGamepadInput: function () {
       const gamepads = navigator.getGamepads ? navigator.getGamepads() : [];
-      for (let gamepadIndex = 0; gamepadIndex < gamepads.length; gamepadIndex++) {
+      for (var gamepadIndex = 0; gamepadIndex < gamepads.length; gamepadIndex++) {
         const gamepad = gamepads[gamepadIndex];
         if (!gamepad) {
           continue;
         }
         
-        let previousButtonStates = webInputBridge.previousGamepadButtonState[gamepadIndex];
+        var previousButtonStates = webInputBridge.previousGamepadButtonState[gamepadIndex];
         if (!previousButtonStates) {
           previousButtonStates = webInputBridge.previousGamepadButtonState[gamepadIndex] = [];
         }
 
-        for (let buttonIndex = 0; buttonIndex < gamepad.buttons.length; buttonIndex++) {
+        for (var buttonIndex = 0; buttonIndex < gamepad.buttons.length; buttonIndex++) {
           if (!webInputBridge.registeredGamepadButtons[buttonIndex]) {
             continue;
           }
