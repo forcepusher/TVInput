@@ -9,7 +9,7 @@ namespace BananaParty.Input.TVRemote
 {
     public static class WebInputBridge
     {
-        private struct InputKey : IEquatable<InputKey>
+        private struct InputKey
         {
             public readonly WebInputDeviceType DeviceType;
             public readonly int KeyCode;
@@ -18,21 +18,6 @@ namespace BananaParty.Input.TVRemote
             {
                 DeviceType = deviceType;
                 KeyCode = keyCode;
-            }
-
-            public bool Equals(InputKey other)
-            {
-                return DeviceType == other.DeviceType && KeyCode == other.KeyCode;
-            }
-
-            public override bool Equals(object obj)
-            {
-                return obj is InputKey other && Equals(other);
-            }
-
-            public override int GetHashCode()
-            {
-                return HashCode.Combine(DeviceType, KeyCode);
             }
         }
 
@@ -89,7 +74,7 @@ namespace BananaParty.Input.TVRemote
         }
 
         [DllImport("__Internal")]
-        private static extern bool WebInputBridgeInitialize(Action<int, int> onButtonPressCallback, Action<int, int> onButtonReleaseCallback);
+        private static extern void WebInputBridgeInitialize(Action<int, int> onButtonPressCallback, Action<int, int> onButtonReleaseCallback);
 
         public static void RegisterButton(WebInputDeviceType webInputDeviceType, int webKeyCode)
         {
