@@ -33,7 +33,7 @@ namespace BananaParty.Input.TVRemote
         }
 
         [DllImport("__Internal")]
-        private static extern void WebInputBridgeRegisterButton(WebInputDeviceType webInputDeviceType, int webKeyCode);
+        private static extern void WebInputBridgeRegisterButton(int webInputDeviceType, int webKeyCode);
 
         public static void PollInput()
         {
