@@ -7,13 +7,12 @@ const webInputBridgeLibrary = {
     gamepadDeviceType: 1,
 
     onButtonPressCallbackPtr: undefined,
-
     onButtonReleaseCallbackPtr: undefined,
 
     registeredKeyboardButtons: {},
     registeredGamepadButtons: {},
 
-    previousGamepadButtonState: {},
+    previousGamepadButtonStates: {},
 
     initialize: function (onButtonPressCallbackPtr, onButtonReleaseCallbackPtr) {
       webInputBridge.onButtonPressCallbackPtr = onButtonPressCallbackPtr;
@@ -50,16 +49,16 @@ const webInputBridgeLibrary = {
             continue;
           }
 
-          const previous = previousButtonStates[buttonIndex] || false;
-          const current = gamepad.buttons[buttonIndex].pressed;
+          const previousButtonState = previousButtonStates[buttonIndex] || false;
+          const currentButtonState = gamepad.buttons[buttonIndex].pressed;
 
-          if (current && !previous) {
+          if (currentButtonState && !previousButtonState) {
             webInputBridge.invokeButtonCallback(webInputBridge.onButtonPressCallbackPtr, webInputBridge.gamepadDeviceType, buttonIndex);
-          } else if (!current && previous) {
+          } else if (!currentButtonState && previousButtonState) {
             webInputBridge.invokeButtonCallback(webInputBridge.onButtonReleaseCallbackPtr, webInputBridge.gamepadDeviceType, buttonIndex);
           }
 
-          previousButtonStates[buttonIndex] = current;
+          previousButtonStates[buttonIndex] = currentButtonState;
         }
       }
     },
