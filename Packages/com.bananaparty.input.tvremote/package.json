@@ -5,5 +5,13 @@
   "displayName": "TV Remote Input",
   "unity": "2022.3",
   "description": "Fully cross-platform input from TV remote",
+  "license": "MIT",
+  "samples": [
+    {
+      "displayName": "Playtesting Sample",
+      "description": "Contains sample for testing input on the TV device",
+      "path": "Samples~/PlaytestingSample"
+    }
+  ],
   "author": "github.com/forcepusher"
 }
