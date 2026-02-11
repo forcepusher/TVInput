@@ -1,12 +1,44 @@
 using AOT;
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using UnityEngine;
 using UnityEngine.LowLevel;
 
 namespace BananaParty.Input.TVRemote
 {
     public static class WebInputBridge
     {
+        private struct InputKey : IEquatable<InputKey>
+        {
+            public readonly WebInputDeviceType DeviceType;
+            public readonly int KeyCode;
+
+            public InputKey(WebInputDeviceType deviceType, int keyCode)
+            {
+                DeviceType = deviceType;
+                KeyCode = keyCode;
+            }
+
+            public bool Equals(InputKey other)
+            {
+                return DeviceType == other.DeviceType && KeyCode == other.KeyCode;
+            }
+
+            public override bool Equals(object obj)
+            {
+                return obj is InputKey other && Equals(other);
+            }
+
+            public override int GetHashCode()
+            {
+                return HashCode.Combine(DeviceType, KeyCode);
+            }
+        }
+
+        private static readonly Dictionary<InputKey, Queue<PressEvent>> _pressEventQueues = new();
+        private static readonly Dictionary<InputKey, Queue<ReleaseEvent>> _releaseEventQueues = new();
+
 #if UNITY_WEBGL && !UNITY_EDITOR
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
 #endif
@@ -66,22 +98,34 @@ namespace BananaParty.Input.TVRemote
 
         public static bool HasUnreadPressEvents(WebInputDeviceType webInputDeviceType, int webKeyCode)
         {
-
+            var key = new InputKey(webInputDeviceType, webKeyCode);
+            return _pressEventQueues.TryGetValue(key, out var queue) && queue.Count > 0;
         }
 
         public static bool HasUnreadReleaseEvents(WebInputDeviceType webInputDeviceType, int webKeyCode)
         {
-
+            var key = new InputKey(webInputDeviceType, webKeyCode);
+            return _releaseEventQueues.TryGetValue(key, out var queue) && queue.Count > 0;
         }
 
         public static PressEvent ReadPressEvents(WebInputDeviceType webInputDeviceType, int webKeyCode)
         {
-
+            var key = new InputKey(webInputDeviceType, webKeyCode);
+            if (_pressEventQueues.TryGetValue(key, out var queue) && queue.Count > 0)
+            {
+                return queue.Dequeue();
+            }
+            return null;
         }
 
         public static ReleaseEvent ReadReleaseEvents(WebInputDeviceType webInputDeviceType, int webKeyCode)
         {
-
+            var key = new InputKey(webInputDeviceType, webKeyCode);
+            if (_releaseEventQueues.TryGetValue(key, out var queue) && queue.Count > 0)
+            {
+                return queue.Dequeue();
+            }
+            return null;
         }
 
         [DllImport("__Internal")]
@@ -93,13 +137,25 @@ namespace BananaParty.Input.TVRemote
         [MonoPInvokeCallback(typeof(Action<int, int>))]
         private static void OnButtonPress(int webInputDeviceType, int webKeyCode)
         {
-            
+            var key = new InputKey((WebInputDeviceType)webInputDeviceType, webKeyCode);
+            if (!_pressEventQueues.TryGetValue(key, out var queue))
+            {
+                queue = new Queue<PressEvent>();
+                _pressEventQueues[key] = queue;
+            }
+            queue.Enqueue(new PressEvent(Time.realtimeSinceStartup));
         }
 
         [MonoPInvokeCallback(typeof(Action<int, int>))]
         private static void OnButtonRelease(int webInputDeviceType, int webKeyCode)
         {
-
+            var key = new InputKey((WebInputDeviceType)webInputDeviceType, webKeyCode);
+            if (!_releaseEventQueues.TryGetValue(key, out var queue))
+            {
+                queue = new Queue<ReleaseEvent>();
+                _releaseEventQueues[key] = queue;
+            }
+            queue.Enqueue(new ReleaseEvent(Time.realtimeSinceStartup));
         }
     }
 }
