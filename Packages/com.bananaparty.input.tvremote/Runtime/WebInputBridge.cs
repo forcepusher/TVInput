@@ -18,7 +18,7 @@ namespace BananaParty.Input.TVRemote
         }
 
         private static class WebPollInputRunner {
-            public static void PollInputUpdate()
+            public static void PollInput()
             {
                 WebInputBridgePollInput();
             }
@@ -47,7 +47,7 @@ namespace BananaParty.Input.TVRemote
             newList[insertIndex] = new PlayerLoopSystem
             {
                 type = typeof(WebPollInputRunner),
-                updateDelegate = WebPollInputRunner.PollInputUpdate
+                updateDelegate = WebPollInputRunner.PollInput
             };
             for (int i = insertIndex; i < root.Length; i++)
                 newList[i + 1] = root[i];
