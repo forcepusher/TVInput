@@ -11,9 +11,19 @@ namespace BananaParty.Input.TVRemote
         public static readonly TVRemoteButton LeftButton = new(WebInputDeviceType.Gamepad, 14, KeyCode.JoystickButton14);
         public static readonly TVRemoteButton RightButton = new(WebInputDeviceType.Gamepad, 15, KeyCode.JoystickButton15);
 
+        public static bool IsRunningOnWeb
+        {
+            get
+            {
 #if UNITY_WEBGL && !UNITY_EDITOR
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+                return true;
+#else
+                return false;
 #endif
+            }
+        }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Unity InitializeOnLoadMethod")]
         private static void Initialize()
         {
@@ -32,23 +42,8 @@ namespace BananaParty.Input.TVRemote
             RightButton.PollInput();
         }
 
-        public static bool IsRunningOnWeb
-        {
-            get
-            {
-#if UNITY_WEBGL && !UNITY_EDITOR
-                return true;
-#else
-                return false;
-#endif
-            }
-        }
-
         private static void InjectPollInputIntoPlayerLoop()
         {
-            if (!IsRunningOnWeb)
-                return;
-
             PlayerLoopSystem loop = PlayerLoop.GetCurrentPlayerLoop();
             PlayerLoopSystem[] root = loop.subSystemList;
             if (root == null) return;
