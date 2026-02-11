@@ -19,7 +19,7 @@ const webInputBridgeLibrary = {
       webInputBridge.onButtonReleaseCallbackPtr = onButtonReleaseCallbackPtr;
 
       document.addEventListener('keydown', function (keyEvent) {
-        if (webInputBridge.registeredKeyboardButtons[keyEvent.keyCode]) {
+        if (webInputBridge.registeredKeyboardButtons[keyEvent.keyCode] && !keyEvent.repeat) {
           webInputBridge.invokeButtonCallback(webInputBridge.onButtonPressCallbackPtr, webInputBridge.keyboardDeviceType, keyEvent.keyCode);
         }
       });
