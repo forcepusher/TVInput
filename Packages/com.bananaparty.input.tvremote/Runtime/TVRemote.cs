@@ -33,7 +33,7 @@ namespace BananaParty.Input.TVRemote
         private static void PollInput()
         {
             if (IsRunningOnWeb)
-                WebInputBridge.WebInputBridgePollInput();
+                WebInputBridge.PollInput();
             
             OkButton.PollInput();
             UpButton.PollInput();
