@@ -39,9 +39,9 @@ const webInputBridgeLibrary = {
           continue;
         }
         
-        var previousButtonStates = webInputBridge.previousGamepadButtonState[gamepadIndex];
+        var previousButtonStates = webInputBridge.previousGamepadButtonStates[gamepadIndex];
         if (!previousButtonStates) {
-          previousButtonStates = webInputBridge.previousGamepadButtonState[gamepadIndex] = [];
+          previousButtonStates = webInputBridge.previousGamepadButtonStates[gamepadIndex] = [];
         }
 
         for (var buttonIndex = 0; buttonIndex < gamepad.buttons.length; buttonIndex++) {
