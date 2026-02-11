@@ -12,6 +12,7 @@ const webInputBridgeLibrary = {
     registeredKeyboardButtons: {},
     registeredGamepadButtons: {},
 
+    pressedKeyboardButtons: {},
     previousGamepadButtonStates: {},
 
     initialize: function (onButtonPressCallbackPtr, onButtonReleaseCallbackPtr) {
@@ -19,14 +20,22 @@ const webInputBridgeLibrary = {
       webInputBridge.onButtonReleaseCallbackPtr = onButtonReleaseCallbackPtr;
 
       document.addEventListener('keydown', function (keyEvent) {
-        if (webInputBridge.registeredKeyboardButtons[keyEvent.keyCode] && !keyEvent.repeat) {
-          webInputBridge.invokeButtonCallback(webInputBridge.onButtonPressCallbackPtr, webInputBridge.keyboardDeviceType, keyEvent.keyCode);
+        if (webInputBridge.registeredKeyboardButtons[keyEvent.keyCode]) {
+          const previousState = webInputBridge.pressedKeyboardButtons[keyEvent.keyCode] || false;
+          if (!previousState) {
+            webInputBridge.pressedKeyboardButtons[keyEvent.keyCode] = true;
+            webInputBridge.invokeButtonCallback(webInputBridge.onButtonPressCallbackPtr, webInputBridge.keyboardDeviceType, keyEvent.keyCode);
+          }
         }
       });
 
       document.addEventListener('keyup', function (keyEvent) {
         if (webInputBridge.registeredKeyboardButtons[keyEvent.keyCode]) {
-          webInputBridge.invokeButtonCallback(webInputBridge.onButtonReleaseCallbackPtr, webInputBridge.keyboardDeviceType, keyEvent.keyCode);
+          const previousState = webInputBridge.pressedKeyboardButtons[keyEvent.keyCode] || false;
+          if (previousState) {
+            webInputBridge.pressedKeyboardButtons[keyEvent.keyCode] = false;
+            webInputBridge.invokeButtonCallback(webInputBridge.onButtonReleaseCallbackPtr, webInputBridge.keyboardDeviceType, keyEvent.keyCode);
+          }
         }
       });
     },
