@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using UnityEngine;
 
 namespace BananaParty.Input.TVRemote
@@ -38,11 +37,22 @@ namespace BananaParty.Input.TVRemote
 
         public void PollInput()
         {
-            while (WebInputBridge.HasUnreadPressEvents(_webInputDeviceType, _webKeyCode))
-                PressEventHub.AddEvent(WebInputBridge.ReadPressEvents(_webInputDeviceType, _webKeyCode));
+            if (IsRunningOnWeb)
+            {
+                while (WebInputBridge.HasUnreadPressEvents(_webInputDeviceType, _webKeyCode))
+                    PressEventHub.AddEvent(WebInputBridge.ReadPressEvents(_webInputDeviceType, _webKeyCode));
 
-            while (WebInputBridge.HasUnreadReleaseEvents(_webInputDeviceType, _webKeyCode))
-                ReleaseEventHub.AddEvent(WebInputBridge.ReadReleaseEvents(_webInputDeviceType, _webKeyCode));
+                while (WebInputBridge.HasUnreadReleaseEvents(_webInputDeviceType, _webKeyCode))
+                    ReleaseEventHub.AddEvent(WebInputBridge.ReadReleaseEvents(_webInputDeviceType, _webKeyCode));
+            }
+            else
+            {
+                if (UnityEngine.Input.GetKeyDown(_unityKeyCode))
+                    PressEventHub.AddEvent(new PressEvent(Time.realtimeSinceStartup));
+
+                if (UnityEngine.Input.GetKeyUp(_unityKeyCode))
+                    ReleaseEventHub.AddEvent(new ReleaseEvent(Time.realtimeSinceStartup));
+            }
         }
     }
 }
