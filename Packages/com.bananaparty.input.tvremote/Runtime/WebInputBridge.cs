@@ -84,33 +84,25 @@ namespace BananaParty.Input.TVRemote
         public static bool HasUnreadPressEvents(WebInputDeviceType webInputDeviceType, int webKeyCode)
         {
             var key = new InputKey(webInputDeviceType, webKeyCode);
-            return _pressEventQueues.TryGetValue(key, out var queue) && queue.Count > 0;
+            return _pressEventQueues[key].Count > 0;
         }
 
         public static bool HasUnreadReleaseEvents(WebInputDeviceType webInputDeviceType, int webKeyCode)
         {
             var key = new InputKey(webInputDeviceType, webKeyCode);
-            return _releaseEventQueues.TryGetValue(key, out var queue) && queue.Count > 0;
+            return _releaseEventQueues[key].Count > 0;
         }
 
         public static PressEvent ReadPressEvents(WebInputDeviceType webInputDeviceType, int webKeyCode)
         {
             var key = new InputKey(webInputDeviceType, webKeyCode);
-            if (_pressEventQueues.TryGetValue(key, out var queue) && queue.Count > 0)
-            {
-                return queue.Dequeue();
-            }
-            return null;
+            return _pressEventQueues[key].Dequeue();
         }
 
         public static ReleaseEvent ReadReleaseEvents(WebInputDeviceType webInputDeviceType, int webKeyCode)
         {
             var key = new InputKey(webInputDeviceType, webKeyCode);
-            if (_releaseEventQueues.TryGetValue(key, out var queue) && queue.Count > 0)
-            {
-                return queue.Dequeue();
-            }
-            return null;
+            return _releaseEventQueues[key].Dequeue();
         }
 
         [DllImport("__Internal")]
