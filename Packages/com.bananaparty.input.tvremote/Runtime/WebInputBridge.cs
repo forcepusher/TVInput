@@ -19,44 +19,6 @@ namespace BananaParty.Input.TVRemote
         private static void Initialize()
         {
             WebInputBridgeInitialize(OnButtonPress, OnButtonRelease);
-            InjectPollInputIntoPlayerLoop();
-        }
-
-        private static void PollInput()
-        {
-            WebInputBridgePollInput();
-        }
-
-        private static void InjectPollInputIntoPlayerLoop()
-        {
-            PlayerLoopSystem loop = PlayerLoop.GetCurrentPlayerLoop();
-            PlayerLoopSystem[] root = loop.subSystemList;
-            if (root == null) return;
-
-            int insertIndex = -1;
-            for (int i = 0; i < root.Length; i++)
-            {
-                if (root[i].type != null && root[i].type.Name == "Update")
-                {
-                    insertIndex = i;
-                    break;
-                }
-            }
-            if (insertIndex < 0) return;
-
-            var newList = new PlayerLoopSystem[root.Length + 1];
-            for (int i = 0; i < insertIndex; i++)
-                newList[i] = root[i];
-            newList[insertIndex] = new PlayerLoopSystem
-            {
-                type = typeof(WebInputBridge),
-                updateDelegate = PollInput
-            };
-            for (int i = insertIndex; i < root.Length; i++)
-                newList[i + 1] = root[i];
-
-            loop.subSystemList = newList;
-            PlayerLoop.SetPlayerLoop(loop);
         }
 
         [DllImport("__Internal")]

@@ -23,18 +23,6 @@ namespace BananaParty.Input.TVRemote
                 WebInputBridge.RegisterButton(webInputDeviceType, webKeyCode);
         }
 
-        public static bool IsRunningOnWeb
-        {
-            get
-            {
-#if UNITY_WEBGL && !UNITY_EDITOR
-                return true;
-#else
-                return false;
-#endif
-            }
-        }
-
         public void PollInput()
         {
             if (IsRunningOnWeb)
