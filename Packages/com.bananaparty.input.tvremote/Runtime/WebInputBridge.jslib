@@ -13,6 +13,8 @@ const webInputBridgeLibrary = {
     registeredKeyboardButtons: {},
     registeredGamepadButtons: {},
 
+    previousGamepadButtonState: {},
+
     initialize: function (onButtonPressCallbackPtr, onButtonReleaseCallbackPtr) {
       webInputBridge.onButtonPressCallbackPtr = onButtonPressCallbackPtr;
       webInputBridge.onButtonReleaseCallbackPtr = onButtonReleaseCallbackPtr;
@@ -38,16 +40,17 @@ const webInputBridgeLibrary = {
           continue;
         }
         
+        let previousPressed = webInputBridge.previousGamepadButtonState[gamepadIndex];
+        if (!previousPressed) {
+          previousPressed = webInputBridge.previousGamepadButtonState[gamepadIndex] = [];
+        }
+
         for (let buttonIndex = 0; buttonIndex < gamepad.buttons.length; buttonIndex++) {
           if (!webInputBridge.registeredGamepadButtons[buttonIndex]) {
             continue;
           }
 
-          if (!gamepad.previousButtons) {
-            gamepad.previousButtons = [];
-          }
-
-          const previous = gamepad.previousButtons[buttonIndex] || false;
+          const previous = previousPressed[buttonIndex] || false;
           const current = gamepad.buttons[buttonIndex].pressed;
 
           if (current && !previous) {
@@ -55,8 +58,8 @@ const webInputBridgeLibrary = {
           } else if (!current && previous) {
             webInputBridge.invokeButtonCallback(webInputBridge.onButtonReleaseCallbackPtr, webInputBridge.gamepadDeviceType, buttonIndex);
           }
-          
-          gamepad.previousButtons[buttonIndex] = current;
+
+          previousPressed[buttonIndex] = current;
         }
       }
     },
